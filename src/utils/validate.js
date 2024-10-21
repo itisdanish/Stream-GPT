@@ -8,7 +8,7 @@ const checkValidateData = (email, password, name) => {
 
   if (!isEmailValid) return 'Email is not Valid';
   if (!isPasswordValid) return 'Password is not Valid';
-  if (!isNameValid) return 'Not a Name';
+  // if (!isNameValid) return 'Not a Name';
 
   return null;
 };

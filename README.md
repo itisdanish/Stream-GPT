@@ -8,6 +8,9 @@
 - Sign Up Form
 - Form Validation
 - useRef()
+- Firebase Setup
+- Deployed in prod
+- Create Sign up user account
 
 # Features
 
