@@ -11,6 +11,8 @@
 - Firebase Setup
 - Deployed in prod
 - Create Sign up user account
+- Implement sign in user API
+- Created Redux Store with userSlice
 
 # Features
 
