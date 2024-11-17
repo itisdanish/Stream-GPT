@@ -1,0 +1,43 @@
+The error you're encountering (`running scripts is disabled on this system`) is due to your system’s PowerShell Execution Policy, which restricts script execution. You can fix this by changing the execution policy to allow script execution.
+
+### Steps to fix the issue:
+
+1. **Open PowerShell as Administrator:**
+   - Search for "PowerShell" in the Start menu.
+   - Right-click on "Windows PowerShell" and select "Run as Administrator."
+
+2. **Check the Current Execution Policy:**
+   Run the following command to see the current policy:
+
+   ```powershell
+   Get-ExecutionPolicy
+   ```
+
+   If it shows `Restricted`, that means script execution is disabled.
+
+3. **Set the Execution Policy to RemoteSigned:**
+   This will allow local scripts to run and only require signed scripts from remote sources. To change the execution policy, run the following command:
+
+   ```powershell
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+
+   After executing this command, PowerShell will prompt you with a warning. Type `Y` and press Enter to confirm the change.
+
+4. **Verify the Execution Policy:**
+   You can verify that the policy was changed by running:
+
+   ```powershell
+   Get-ExecutionPolicy -Scope CurrentUser
+   ```
+
+   It should now display `RemoteSigned`.
+
+5. **Run the Firebase Command Again:**
+   Close the PowerShell window and open a new one. Then try running the `firebase` command again:
+
+   ```bash
+   firebase --version
+   ```
+
+This should resolve the issue and allow you to use Firebase CLI commands without restrictions. Let me know if it works or if you encounter further issues!

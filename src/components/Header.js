@@ -1,18 +1,45 @@
-import React from 'react';
-import { signOut } from 'firebase/auth';
+import React, { useEffect } from 'react';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addUser, removeUser } from '../utils/userSlice';
+import { LOGO } from '../utils/constants';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   // console.log(user.photoURL);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate('/browse');
+        // ...
+      } else {
+        dispatch(removeUser());
+        navigate('/');
+      }
+    });
+    // Unsubcribe when component unmounts
+    return () => unsubscribe();
+  }, []);
+
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        navigate('/');
-      })
+      .then(() => {})
       .catch((error) => {
         navigate('/error');
       });
@@ -22,7 +49,7 @@ const Header = () => {
       {/* Netflix Logo */}
       <img
         className='w-32 object-contain'
-        src='https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png'
+        src={LOGO}
         alt='Netflix Logo'
       />
 

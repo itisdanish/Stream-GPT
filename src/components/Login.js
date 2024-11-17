@@ -10,6 +10,7 @@ import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { BG_LOGIN, USER_AVATAR } from '../utils/constants';
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMesg, setErrorMesg] = useState(null);
@@ -39,8 +40,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL:
-              'https://occ-0-6245-2186.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABTZ2zlLdBVC05fsd2YQAR43J6vB1NAUBOOrxt7oaFATxMhtdzlNZ846H3D8TZzooe2-FT853YVYs8p001KVFYopWi4D4NXM.png?r=229',
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               // Profile updated!
@@ -54,7 +54,6 @@ const Login = () => {
                 })
               );
 
-              navigate('/browse');
               // ...
             })
             .catch((error) => {
@@ -79,7 +78,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate('/browse');
           // ...
         })
         .catch((error) => {
@@ -97,13 +95,13 @@ const Login = () => {
     <div className='relative h-screen flex flex-col items-center justify-center bg-black text-white'>
       <Header />
       <img
-        src='https://assets.nflxext.com/ffe/siteui/vlv3/7c0e18aa-2c95-474d-802e-7f30e75dcca4/web/IN-en-20241014-TRIFECTA-perspective_e7121311-c11e-4809-a3e6-22abffa33569_large.jpg'
+        src={BG_LOGIN}
         alt='Background'
         className='absolute inset-0 w-full h-full object-cover opacity-50'
       />
       <form
         onSubmit={(e) => e.preventDefault()}
-        className='relative z-10 p-8 sm:w-3/6 md:w-3/12 bg-black bg-opacity-75 rounded shadow-lg'
+        className='relative z-10 p-8 sm:w-3/8 bg-black bg-opacity-75 rounded shadow-lg'
       >
         <h1 className='text-3xl font-bold mb-6 '>
           {isSignInForm ? 'Sign In' : 'Sign Up'}

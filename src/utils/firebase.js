@@ -12,7 +12,7 @@ const firebaseConfig = {
   authDomain: 'streamgpt-eeb96.firebaseapp.com',
   projectId: 'streamgpt-eeb96',
   storageBucket: 'streamgpt-eeb96.appspot.com',
-  messagingSenderId: '305924551395',
+  messagingSenderId: '305924551395', 
   appId: '1:305924551395:web:79fe219efea9edac10cbd6',
   measurementId: 'G-N5SZQ8BWEH',
 };
